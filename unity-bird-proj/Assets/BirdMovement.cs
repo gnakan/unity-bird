@@ -4,10 +4,10 @@ using System.Collections;
 public class BirdMovement : MonoBehaviour {
 
 	Vector3 velocity = Vector3.zero;
-	public Vector3 gravity;
-	public Vector3 flapVelocity;
-	public float maxSpeed = 5f;
-	public float forwardSpeed = 1f;
+	//public Vector3 flapVelocity;
+	//public float maxSpeed = 5f;
+	float flapSpeed = 100f;
+	float forwardSpeed = 1f;
 
 	bool didFlap = false;
 
@@ -25,9 +25,9 @@ public class BirdMovement : MonoBehaviour {
 	}
 	
 	// do physics engine updates here
+	/*
 	void FixedUpdate () {
 		velocity.x = forwardSpeed;
-		velocity += gravity * Time.deltaTime;
 
 		//before we flap
 		if (didFlap == true) {
@@ -39,6 +39,8 @@ public class BirdMovement : MonoBehaviour {
 
 		velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
+		rigidbody2D.AddForce (velocity);
+
 		transform.position += velocity * Time.deltaTime;
 
 		//for handling the rotation of the bird when it is losing speed
@@ -49,5 +51,26 @@ public class BirdMovement : MonoBehaviour {
 		}
 
 		transform.rotation = Quaternion.Euler (0, 0, angle);
+	}
+	*/
+
+
+	void FixedUpdate(){
+		rigidbody2D.AddForce (Vector2.right * forwardSpeed);
+
+		if (didFlap) {
+			rigidbody2D.AddForce (Vector2.up * flapSpeed);
+			didFlap = false;
+		}
+
+		if (rigidbody2D.velocity.y > 0) {
+			transform.rotation = Quaternion.Euler (0, 0, 0);		
+		} 
+		else 
+		 {
+			float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2f);
+			transform.rotation = Quaternion.Euler (0, 0, angle);
+		}
+
 	}
 }

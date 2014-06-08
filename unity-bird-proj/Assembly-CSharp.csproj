@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BGLooper.cs" />
      <Compile Include="Assets\BirdMovement.cs" />
      <Compile Include="Assets\CameraTracksPlayer.cs" />
+     <Compile Include="Assets\GroundMover.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
